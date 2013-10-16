@@ -6,11 +6,11 @@ require 'dynamic_fields/version'
 Gem::Specification.new do |spec|
   spec.name          = "dynamic_fields"
   spec.version       = DynamicFields::VERSION
-  spec.authors       = ["Jarrett Lusso"]
-  spec.email         = ["jclusso@graphicflash.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.authors       = ["MailDropr"]
+  spec.email         = ["contact@maildropr.com"]
+  spec.description   = "Define custom fields"
+  spec.summary       = spec.description
+  spec.homepage      = "https://github.com/maildropr/dynamic_fields"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,6 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "activesupport"
+  
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "simplecov"
+
 end

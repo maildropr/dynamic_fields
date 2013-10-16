@@ -18,7 +18,34 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class Company
+  include Mongoid::Document
+  include DynamicFields::Mongoid::Source
+
+  has_many :employees
+end
+
+class Employee
+  include Mongoid::Document
+  include DynamicFields::Mongoid::Target
+
+  belongs_to :company
+  dynamic_fields_source_relationship :company
+end
+
+company = Company.new
+email_field = company.dynamic_fields.add(name: "email", label: "Email Address", required: true, unique: true)
+email_field.add_validator(EmailValidator, strict: true)
+
+company.save # Serializes dynamic fields into JSON or something
+
+employee = company.employees.build
+employee.dynamic_fields.email = "john" # or employee.email
+
+employee.valid? # => false
+employee.errors # Will include {"email" => "is invalid"} in ActiveModel::Errors
+```
 
 ## Contributing
 
