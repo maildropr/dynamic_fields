@@ -1,4 +1,4 @@
-require 'dynamic_fields/validator_collection'
+require 'dynamic_fields/field_validator_collection'
 
 module DynamicFields
   class Field
@@ -7,12 +7,20 @@ module DynamicFields
 
     def initialize(key, options = {})
       @key = key
-      @validators = build_validator_collection(options[:validators])
+      # @validators = build_validator_collection(options[:validators])
       @label = options[:label]
     end
 
-    def build_validator_collection(definition)
-      []
+    def add_validator(validator_class, default_options = {})
+      validators.add(validator_class, default_options)
     end
+
+    def validators
+      @validators ||= FieldValidatorCollection.new
+    end
+
+    # def build_validator_collection(definition)
+    #   ValidatorCollection.new
+    # end
   end
 end
