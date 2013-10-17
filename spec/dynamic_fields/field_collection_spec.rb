@@ -16,9 +16,14 @@ describe DynamicFields::FieldCollection do
     it "returns a FieldCollection" do
       subject.should be_a DynamicFields::FieldCollection
     end
+
     it "adds fields to the field collection with appropriate options" do
       subject.should include "email"
       subject.fields[:email].label.should == "Email Address"
+    end
+
+    it "adds validators to fields" do
+      subject.fields[:email].validators.should include EmailValidator
     end
   end
 

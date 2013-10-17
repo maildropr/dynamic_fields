@@ -9,6 +9,10 @@ module DynamicFields
       validators.keys
     end
 
+    def [](class_name)
+      validators[class_name]
+    end
+
     def add(class_name, default_options = {})
       validators[class_name] = FieldValidator.new(class_name, default_options)
     end

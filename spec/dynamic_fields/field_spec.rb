@@ -16,7 +16,10 @@ describe DynamicFields::Field do
       subject.add_validator(TestValidator)
       subject.validators.should include TestValidator
     end
-    
-    it "adds default validator options"
+
+    it "adds default validator options" do
+      subject.add_validator(TestValidator, some_arg: 1)
+      subject.validators[TestValidator].options.should have_key :some_arg
+    end
   end
 end

@@ -72,15 +72,6 @@ module DynamicFields
           
           field = construct_field_from_definition(field_definition)
 
-          if field_definition[:validators]
-            field_definition[:validators].each do |validator_definition|
-              klass = ActiveSupport::Inflector.constantize validator_definition[:class_name]
-              args = validator_definition[:args]
-
-              field.add_validator(klass, *args)
-            end
-          end
-
           collection.add(field)
         end
 
@@ -93,8 +84,22 @@ module DynamicFields
         key = field_definition[:key]
         label = field_definition[:label]
 
-        Field.new(key, label: label)
+        field = Field.new(key, label: label)
+        add_validators_to_field!(field, field_definition[:validators]) if field_definition[:validators]
+
+        return field
+
       end
+
+      def add_validators_to_field!(field, validators)
+        validators.each do |validator_definition|
+          klass = ActiveSupport::Inflector.constantize validator_definition[:class_name]
+          args = validator_definition[:args]
+
+          field.add_validator(klass, *args)
+        end
+      end
+
     end
 
   end
