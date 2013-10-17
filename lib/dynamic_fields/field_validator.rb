@@ -8,6 +8,7 @@ module DynamicFields
     end
 
     def validate(value)
+      @class_name.send(:validate, value)
     end
   end
 end

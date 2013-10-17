@@ -23,7 +23,7 @@ describe DynamicFields::FieldCollection do
     end
 
     it "adds validators to fields" do
-      subject.fields[:email].validators.should include EmailValidator
+      subject.fields[:email].validators.should include PresenceValidator
     end
   end
 
@@ -48,6 +48,23 @@ describe DynamicFields::FieldCollection do
 
       subject.should_not include :first_name
       subject.should_not include :last_name
+    end
+  end
+
+  describe '.[]' do
+    before { add_sample_field(subject, :first_name) }
+
+    context "with a valid field name" do
+      it "returns the field with the given name" do
+        subject[:first_name].should be_a DynamicFields::Field
+        subject[:first_name].key.should == :first_name
+      end
+    end
+
+    context "with an invalid field name" do
+      it "returns nil" do
+        subject[:last_name].should be_nil
+      end
     end
   end
 

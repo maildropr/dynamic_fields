@@ -29,5 +29,9 @@ module DynamicFields
       @validators = nil
     end
 
+    def each(&block)
+      validators.values.each(&block)
+    end
+
   end
 end

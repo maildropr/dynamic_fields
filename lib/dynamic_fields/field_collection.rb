@@ -22,12 +22,20 @@ module DynamicFields
       @fields ||= ActiveSupport::HashWithIndifferentAccess.new
     end
 
+    def [](field_name)
+      fields[field_name]
+    end
+
     def clear!
       @fields = nil
     end
 
     def include?(field_name)
       fields.include? field_name
+    end
+
+    def each(&block)
+      fields.values.each(&block)
     end
 
     class << self

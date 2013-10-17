@@ -7,7 +7,6 @@ module DynamicFields
 
     def initialize(key, options = {})
       @key = key
-      # @validators = build_validator_collection(options[:validators])
       @label = options[:label]
     end
 
@@ -19,8 +18,16 @@ module DynamicFields
       @validators ||= FieldValidatorCollection.new
     end
 
-    # def build_validator_collection(definition)
-    #   ValidatorCollection.new
-    # end
+    def validate(value)
+      validation_errors = Array.new
+
+      validators.each do |validator|
+        result = validator.validate(value)
+        validation_errors << result if result
+      end
+
+      validation_errors.flatten
+    end
+
   end
 end

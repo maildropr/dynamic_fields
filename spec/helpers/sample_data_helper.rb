@@ -6,10 +6,6 @@ module SampleDataHelper
         label: "Email Address", 
         validators: [
           {
-            class_name: "EmailValidator", 
-            args: [ {strict: true} ]
-          },
-          {
             class_name: "PresenceValidator"
           }
         ]
@@ -20,10 +16,6 @@ module SampleDataHelper
         validators: [
           {
             class_name: "PresenceValidator"
-          },
-          {
-            class_name: "NumericalityValidator",
-            args: [ {greater_than_or_equal_to: 0} ]
           }
         ]
       }
@@ -33,7 +25,7 @@ module SampleDataHelper
   def sample_valid_fields
     {
       email: "john_smith@example.com",
-      "salary" => 500_000
+      salary: 500_000
     }
   end
 

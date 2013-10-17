@@ -16,6 +16,8 @@ describe DynamicFields::Validator do
       subject { DynamicFields::Validator.new(sample_field_definition, sample_valid_fields) }
 
       it "returns true" do
+        subject.valid?
+        puts subject.errors
         subject.should be_valid
       end
     end
@@ -30,12 +32,22 @@ describe DynamicFields::Validator do
   end
 
   describe ".errors" do
+    before { subject.valid? }
+
     context "with validation errors" do
-      it "returns a hash of errors"
+      subject { DynamicFields::Validator.new(sample_field_definition, sample_invalid_fields) }
+      it "returns a hash of errors" do
+        subject.errors.should_not be_empty
+        subject.errors.should be_a Hash
+      end
     end
 
     context "without validation errors" do
-      it "returns nil"
+      subject { DynamicFields::Validator.new(sample_field_definition, sample_valid_fields) }
+
+      it "returns nil" do
+        subject.errors.should be_nil
+      end
     end
   end
 
