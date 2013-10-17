@@ -57,14 +57,30 @@ describe DynamicFields::FieldCollection do
       add_sample_field(subject, :last_name)
     end
 
-    it "removes the given field" do
-      subject.should include :first_name
-      subject.should include :last_name
+    context "with key" do
+      it "removes the given field" do
+        subject.should include :first_name
+        subject.should include :last_name
 
-      subject.remove(:first_name)
+        subject.remove(:first_name)
 
-      subject.should_not include :first_name
-      subject.should include :last_name
+        subject.should_not include :first_name
+        subject.should include :last_name
+      end
+    end
+
+    context "with field" do
+      it "removes the given field" do
+        field = DynamicFields::Field.new(:first_name)
+
+        subject.should include :first_name
+        subject.should include :last_name
+
+        subject.remove field
+
+        subject.should_not include :first_name
+        subject.should include :last_name
+      end
     end
   end
 end
